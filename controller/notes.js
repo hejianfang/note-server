@@ -5,6 +5,7 @@ var notes = require("../database/model/note")
 
 router.get('/get/allnoteList',(req,res)=>{
     notes.find({}).limit(5).then(data=>{
+        console.log(data);
         res.json({
             data,
             code:200,
@@ -15,13 +16,15 @@ router.post('/add/noteList',(req,res)=>{
     let {title,conent,classify} = req.body
     let browse =  0
     let repley =  0
-    let update = new Date().toUTCString()
-    let {name,_id} = req.session.users
-    notes.create({name,id:_id,title,conent,classify,browse,repley,update,repleys}).then(data=>{
+    let update = new Date().toLocaleString();
+    let {name,_id,pic} = req.session.users
+    notes.create({name,id:_id,title,conent,classify,browse,repley,update,pic}).then(data=>{
         res.json({
                   data,
                   code:200,
               })
+    }).catch(err=>{
+        console.log(err);
     })
 });
 router.get('/noteList/one',(req,res)=>{
@@ -32,7 +35,11 @@ router.get('/noteList/one',(req,res)=>{
         })
         res.json({
             code:200,
-            data
+            data,
+            users:{
+                name:req.session.users.name,
+                userId:req.session.users._id
+            }
         })
     })
 });

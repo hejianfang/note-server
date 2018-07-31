@@ -10,7 +10,6 @@ var user = new Schema({
     pwd:String,
     avatar: {
         type: String,
-        default: '/images/avatar1.jpg'
     }
 },{versionKey: false, timestamps: {createAt: "createTime", updateAt: "updateTime"}});
 module.exports = mongoose.model("user",user);

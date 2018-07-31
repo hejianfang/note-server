@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var user = require("../database/model/user")
+var notes = require("../database/model/note")
 
 router.post('/login',(req,res)=>{
     let {email,pwd} = req.body;
@@ -8,11 +9,13 @@ router.post('/login',(req,res)=>{
         if(data){
            if(data.pwd == pwd){
                req.session.users = data;
-               let {email,name} = data
+               console.log(req.session.users);
+               let {email,name,avatar} = data
                res.json({
                    data:{
                        email,
-                       name
+                       name,
+                       avatar
                    },
                    code:200,
                    msg:'登录成功'
@@ -33,11 +36,12 @@ router.post('/login',(req,res)=>{
 })
 router.get('/getMsg',(req,res)=>{
     if(req.session.users){
-        let {email,name} = req.session.users
+        let {email,name,avatar} = req.session.users
         res.json({
             data:{
                 email,
-                name
+                name,
+                avatar
             },
             code:200,
             msg:"用户已登录"
@@ -64,7 +68,20 @@ router.get('/exitMsg',(req,res)=>{
             msg:'重新退出'
         })
     }
-
+})
+router.post('/userchange',(req,res)=>{
+    let {name,email,pwd,avatar} = req.body
+    console.log(avatar);
+    user.findOneAndUpdate({email},{$set:{name,pwd,avatar}}).then(data=>{
+        req.session.users = data
+        notes.update({name},{$set:{pic:avatar}}).then(data=>{
+        })
+          console.log(data);
+          res.json({
+              data,
+              code:200
+          })
+      })
 })
 
 

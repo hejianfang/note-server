@@ -10,6 +10,7 @@ var note = new Schema({
     repley:Number,
     classify:String,
     update: Date,
+    pic:String
 },
     {versionKey: false, timestamps: {createAt: "createTime", updateAt: "updateTime"}});
 
