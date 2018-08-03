@@ -46,7 +46,6 @@ const middleFun = upload.single('pic')
 
 router.post('/upload',(req,res) => {
     middleFun(req, res, function (err) {
-        console.log(req.file);
         if(err){
             console.log(22);
             res.json({

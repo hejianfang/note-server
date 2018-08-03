@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var note = new Schema({
+     pic:String,
     name: String,
     id:String,
     title:String,
@@ -10,7 +11,6 @@ var note = new Schema({
     repley:Number,
     classify:String,
     update: Date,
-    pic:String
 },
     {versionKey: false, timestamps: {createAt: "createTime", updateAt: "updateTime"}});
 

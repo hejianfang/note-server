@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var session = require('express-session')
 var MongoStore = require('connect-mongo')(session);
-
+var proxy = require('http-proxy-middleware');
 require("./database/config")
 var index = require('./controller/index');
 var app = express();
@@ -31,6 +31,13 @@ app.use(session({
         ttl: 14 * 24 * 60 * 60
     })
 }))
+app.use('/pic', proxy({
+    target: 'http://11.yaojunrong.com/api/client/upload',
+    changeOrigin: true,
+    pathRewrite:{
+        "/pic":"/"
+    }
+}));
 app.use('/', index);
 
 // catch 404 and forward to error handler
