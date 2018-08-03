@@ -45,9 +45,8 @@ router.get('/noteList/one',(req,res)=>{
 });
 router.get('/noteList/title',(req,res)=>{
     let title = req.query.title
-    console.log(title);
-    let reg = new RegExp(`${title}`)
-    notes.find({title:reg}).then(data=>{
+    let reg = new RegExp(title)
+    notes.find({$or:[{title:reg},{conent:reg}]}).then(data=>{
           if(!(data == [])){
               res.json({
                   code:200,
