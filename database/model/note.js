@@ -7,6 +7,7 @@ var note = new Schema({
     id:String,
     title:String,
     conent:String,
+    conents:String,
     browse:Number,
     repley:Number,
     classify:String,

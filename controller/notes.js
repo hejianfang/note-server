@@ -4,7 +4,7 @@ var notes = require("../database/model/note")
 
 
 router.get('/get/allnoteList',(req,res)=>{
-    notes.find({}).limit(5).then(data=>{
+    notes.find({}).limit(5).sort({_id:-1}).then(data=>{
         res.json({
             data,
             code:200,
@@ -12,13 +12,14 @@ router.get('/get/allnoteList',(req,res)=>{
     })
 });
 router.post('/add/noteList',(req,res)=>{
-    let {title,conent,classify} = req.body
+    let {title,conent,conents,classify} = req.body
     let browse =  0
     let repley =  0
     let update = new Date().toLocaleString();
     let {name,_id} = req.session.users
-   let pic = req.session.users.avatar
-    notes.create({pic,name,id:_id,title,conent,classify,browse,repley,update}).then(data=>{
+    let pic = req.session.users.avatar
+    console.log(conents);
+    notes.create({pic,name,id:_id,title,conent,conents,classify,browse,repley,update}).then(data=>{
         res.json({
                   data,
                   code:200,

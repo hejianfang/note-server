@@ -12,8 +12,8 @@ router.get('/swipers', function(req, res) {
     })
 });
 router.post('/swipers', function(req, res) {
-    let{id,title,pic,content} = req.body
-    swiper.create({id,title,pic,content}).then((data)=>{
+    let{title,pic,content} = req.body
+    swiper.create({title,pic,content}).then((data)=>{
         res.json({
             code:200,
             data

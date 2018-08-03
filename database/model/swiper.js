@@ -2,7 +2,6 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var swiper = new Schema({
-    id: Number,
     title:  String,
     pic: String,
     content: String,

@@ -21,7 +21,6 @@ router.post('/region', (req, res)=> {
             }else{
                 let avatar = "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3289761550,697278018&fm=27&gp=0.jpg"
                 user.create({name,email,pwd,avatar}).then((data)=>{
-                    req.session.users = data
                     res.json({
                         code:200,
                         msg:"注册成功",

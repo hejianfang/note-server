@@ -10,6 +10,7 @@ router.post('/login',(req,res)=>{
         if(data){
            if(data.pwd == pwd){
                let {email,name,avatar} = data
+               req.session.users = data
                res.json({
                    data:{
                        email,
@@ -51,13 +52,14 @@ router.get('/exitMsg',(req,res)=>{
     }
 })
 router.post('/userchange',(req,res)=>{
-    let {name,email,pwd,avatar} = req.body
-    req.session.users = null
+    let {pwd,avatar} = req.body
+    let {email,name} = req.session.users
     user.update({email},{$set:{name,pwd,avatar}}).then(data=>{
-        notes.update({name},{$set:{pic:avatar}}).then(data=>{
+        notes.updateMany({name},{$set:{pic:avatar}}).then(data=>{
         })
       })
     user.find({email}).then(data=>{
+        req.session.users = data
         res.json({
             data,
             code:200
